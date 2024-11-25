@@ -10,14 +10,27 @@
   "author": "JunShiun",
   "license": "ISC",
   "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.696.0",
+    "aws-sdk": "^2.1692.0",
+    "aws-serverless-express": "^3.4.0",
+    "aws4": "^1.13.2",
     "bcryptjs": "^2.4.3",
     "dotenv": "^16.0.0",
-    "express": "^4.17.3",
+    "express": "^4.21.1",
     "express-async-handler": "^1.2.0",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^6.3.1"
+    "mongoose": "^6.3.1",
+    "serverless-http": "^3.2.0",
+    "serverless-offline": "^14.3.4",
+    "serverless-plugin-log-retention": "^2.0.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.15"
+    "@types/bcryptjs": "^2.4.6",
+    "@types/express": "^5.0.0",
+    "@types/jsonwebtoken": "^9.0.7",
+    "@types/node": "^22.9.0",
+    "nodemon": "^2.0.15",
+    "serverless-offline-watcher": "^1.1.0",
+    "typescript": "^5.6.3"
   }
 }
