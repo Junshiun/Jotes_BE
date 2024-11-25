@@ -1,0 +1,186 @@
+# TestApi:
+#     handler: handlers/test.handler
+#     events:
+#       - http:
+#           path: /test
+#           method: get
+#           cors:
+#             origin: '*'
+#             headers:
+#               - Content-Type
+#               - Authorization
+#               - X-Amz-Date
+#               - X-Api-Key
+#               - X-Amz-Security-Token
+#               - X-Amz-User-Agent
+        
+NotesGetApi:
+    handler: handlers/notesHandler.handler
+    name: jotes-notes-get-api
+    timeout: 30
+    memorySize: 512
+    events:
+      - http:
+          path: /notes
+          method: get
+          cors:
+            origin: '*'
+            headers:
+              - Content-Type
+              - Authorization
+              - X-Amz-Date
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+
+NoteCreateApi:
+    handler: handlers/notesHandler.handler
+    name: jotes-note-create-api
+    timeout: 30
+    memorySize: 512
+    events:
+      - http:
+          path: /notes/create
+          method: post
+          cors:
+            origin: '*'
+            headers:
+              - Content-Type
+              - Authorization
+              - X-Amz-Date
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+            
+NoteGetApi:
+    handler: handlers/notesHandler.handler
+    name: jotes-note-get-api
+    timeout: 30
+    memorySize: 512
+    events:
+      - http:
+          path: /notes/{id}
+          method: get
+          cors:
+            origin: '*'
+            headers:
+              - Content-Type
+              - Authorization
+              - X-Amz-Date
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+            
+NoteUpdateApi:
+    handler: handlers/notesHandler.handler
+    name: jotes-note-update-api
+    timeout: 30
+    memorySize: 512
+    events:
+      - http:
+          path: /notes/{id}
+          method: put
+          cors:
+            origin: '*'
+            headers:
+              - Content-Type
+              - Authorization
+              - X-Amz-Date
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+
+NoteDeleteApi:
+    handler: handlers/notesHandler.handler
+    name: jotes-note-delete-api
+    timeout: 30
+    memorySize: 512
+    events:
+      - http:
+          path: /notes/{id}
+          method: delete
+          cors:
+            origin: '*'
+            headers:
+              - Content-Type
+              - Authorization
+              - X-Amz-Date
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+
+UserRegisterApi:
+    handler: handlers/userHandler.handler
+    name: jotes-user-register-api
+    timeout: 30
+    memorySize: 512
+    events:
+      - http:
+          path: /user
+          method: post
+          cors:
+            origin: '*'
+            headers:
+              - Content-Type
+              - Authorization
+              - X-Amz-Date
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+          
+UserLoginApi:
+    handler: handlers/userHandler.handler
+    name: jotes-user-login-api
+    timeout: 30
+    memorySize: 512
+    events:
+      - http:
+          path: /user/login
+          method: post
+          cors:
+            origin: '*'
+            headers:
+              - Content-Type
+              - Authorization
+              - X-Amz-Date
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+            
+UserEditApi:
+    handler: handlers/userHandler.handler
+    name: jotes-user-edit-api
+    timeout: 30
+    memorySize: 512
+    events:
+      - http:
+          path: /user/profile
+          method: put
+          cors:
+            origin: '*'
+            headers:
+              - Content-Type
+              - Authorization
+              - X-Amz-Date
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+            
+UserDeleteApi:
+    handler: handlers/userHandler.handler
+    name: jotes-user-delete-api
+    timeout: 30
+    memorySize: 512
+    events:
+      - http:
+          path: /user/profile
+          method: delete
+          cors:
+            origin: '*'
+            headers:
+              - Content-Type
+              - Authorization
+              - X-Amz-Date
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent

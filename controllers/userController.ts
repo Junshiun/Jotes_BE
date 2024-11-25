@@ -1,16 +1,25 @@
-const user = require("../models/userModel");
-const notes = require("../models/notesModel");
-const asyncHandler = require("express-async-handler");
-const generateToken = require("../utils/generateJWT");
+import user from "@models/userModel";
+import notes from "@models/notesModel";
+// import asyncHandler from "express-async-handler";
+import { generateToken } from "@utils/generateJWT";
+import expressAsyncHandler from "express-async-handler";
+import { Request, Response } from "express";
 
-const registerUser = asyncHandler(async (req, res) => {
+const asyncHandler = expressAsyncHandler;
+
+const registerUser = asyncHandler(async (req: Request, res: Response) => {
+
+  console.log("registering");
+
   const { name, email, password } = req.body;
 
   const userExists = await user.findOne({ email });
 
   if (userExists) {
-    res.status(400);
-    throw new Error("Users with the same email address already exists");
+    res.status(400).json({
+      errorDesc: "Users with the same email address already exists"
+    });
+    // throw new Error("Users with the same email address already exists");
   }
 
   const userCreate = await user.create({ name, email, password });
@@ -21,15 +30,17 @@ const registerUser = asyncHandler(async (req, res) => {
       name: userCreate.name,
       email: userCreate.email,
       isAdmin: userCreate.isAdmin,
-      token: generateToken(user._id),
+      token: generateToken(userCreate._id),
     });
   } else {
-    res.status(400);
-    throw new Error("Error occurs when creating user");
+    res.status(400).json({
+      errorDesc: "Error occurs when creating user"
+    });
+    // throw new Error("Error occurs when creating user");
   }
 });
 
-const authUser = asyncHandler(async (req, res) => {
+const authUser = asyncHandler(async (req: Request, res: Response) => {
   const { email, password } = req.body;
 
   const currentUser = await user.findOne({ email });
@@ -40,15 +51,18 @@ const authUser = asyncHandler(async (req, res) => {
       name: currentUser.name,
       email: currentUser.email,
       isAdmin: currentUser.isAdmin,
-      token: generateToken(currentUser._id),
+      token: await generateToken(currentUser._id),
     });
   } else {
-    res.status(400);
-    throw new Error("Invalid Email or Password");
+    res.status(400).json({
+      errorDesc: "Invalid Email or Password"
+    });
+    // throw new Error("Invalid Email or Password");
   }
 });
 
-const editUser = asyncHandler(async (req, res) => {
+const editUser = asyncHandler(async (req: Request, res: Response) => {
+  console.log("editing");
   const { password, name, email, changePwd, newPassword } = req.body;
 
   const currentUser = await user.findOne({ email });
@@ -68,16 +82,18 @@ const editUser = asyncHandler(async (req, res) => {
         token: generateToken(currentUser._id),
       });
     } else {
-      res.status(400);
-      throw new Error("invalid password");
+      res.status(400).json({
+        errorDesc: "invalid password"
+      });
     }
   } else {
-    res.status(400);
-    throw new Error("user not found");
+    res.status(400).json({
+      errorDesc: "user not found"
+    });
   }
 });
 
-const deleteUser = asyncHandler(async (req, res) => {
+const deleteUser = asyncHandler(async (req: Request, res: Response) => {
   const { password, email } = req.body;
 
   const currentUser = await user.findOne({ email });
@@ -107,4 +123,4 @@ const deleteUser = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { registerUser, authUser, editUser, deleteUser };
+export { registerUser, authUser, editUser, deleteUser };

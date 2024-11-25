@@ -1,0 +1,61 @@
+service: jotes-service
+
+plugins:
+  - serverless-offline
+  - serverless-plugin-log-retention
+  # - serverless-offline-watcher
+  # - serverless-express
+
+custom:
+  logRetentionInDays: 30
+  serverless-offline:
+    httpPort: 5000
+  # serverless-offline-watcher:
+  #   - path:
+  #       - 'handlers/test.js'
+  #     command: echo "index.ts was modified!"
+
+build:
+  esbuild:
+    minify: true
+
+provider:
+  name: aws	
+  endpointType: REGIONAL
+  deploymentMethod: direct
+  runtime: nodejs20.x
+  region: ap-southeast-1
+  profile: personal-projects
+
+  environment:
+    ${file(./env/env.yml)}
+
+    # layers: 
+    #   - !Ref PortfolioLambdaLayer
+
+  apiGateway:
+    binaryMediaTypes:
+      - 'image/png'
+      - 'text/html'
+      - 'image/avif'
+      - 'image/webp'
+
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - lambda:*
+      Resource:
+        - arn:aws:lambda:ap-southeast-1:*:function:*
+    - Effect: Allow
+      Action:
+        - dynamodb:*
+      Resource:
+        - arn:aws:dynamodb:ap-southeast-1:*:table/personal-projects-config
+    - Effect: Allow
+      Action:
+        - secretsmanager:*
+      Resource:
+        - arn:aws:secretsmanager:ap-southeast-1:*:*
+
+functions:
+  ${file(./functions/functions.yml)}
