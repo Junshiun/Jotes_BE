@@ -25,7 +25,6 @@ provider:
   deploymentMethod: direct
   runtime: nodejs20.x
   region: ap-southeast-1
-  profile: personal-projects
 
   environment:
     ${file(./env/env.yml)}
